@@ -34,10 +34,10 @@ export function Hero({ content }: { content: HeroContent }) {
       </div>
 
       {/* Imagem full-width tratada como bloco visual próprio */}
-      <div className="mt-9 overflow-hidden rounded-2xl border border-border shadow-2xl shadow-black/40 md:mt-12">
+      <div className="mt-6 overflow-hidden rounded-2xl border border-border shadow-2xl shadow-black/40 md:mt-8">
         {/* Mobile (retrato) */}
         <Image
-          src="/hero-mobile.png"
+          src="/hero-mobile.webp"
           alt="Jota Remédios ao centro, com uma águia e um golfinho ao pôr do sol"
           width={1143}
           height={1425}
@@ -47,7 +47,7 @@ export function Hero({ content }: { content: HeroContent }) {
         />
         {/* Desktop (paisagem) */}
         <Image
-          src="/hero-desktop.png"
+          src="/hero-desktop.webp"
           alt="Jota Remédios ao centro, com uma águia e um golfinho ao pôr do sol sobre o oceano"
           width={1456}
           height={1093}
