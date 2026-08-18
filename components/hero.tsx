@@ -4,7 +4,7 @@ import { CTA_LABEL, type HeroContent } from '@/lib/site'
 
 export function Hero({ content }: { content: HeroContent }) {
   return (
-    <header className="relative flex min-h-[90vh] w-full items-center overflow-hidden md:min-h-screen">
+    <header className="relative flex min-h-[90vh] w-full items-end overflow-hidden md:min-h-screen">
       {/* Imagem de fundo — full screen atrás do conteúdo */}
       <div className="absolute inset-0 z-0">
         {/* Mobile (retrato) */}
