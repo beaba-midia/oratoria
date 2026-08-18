@@ -18,12 +18,12 @@ export function Hero({ content }: { content: HeroContent }) {
         />
         {/* Desktop (paisagem) */}
         <Image
-          src="/hero-desktop.webp"
+          src="/hero-desktop-v2.png"
           alt="Jota Remédios ao centro, com uma águia e um golfinho ao pôr do sol sobre o oceano"
           fill
           priority
           sizes="(min-width: 768px) 100vw, 0px"
-          className="hidden object-cover object-[50%_35%] md:block"
+          className="hidden object-cover object-[75%_38%] md:block"
         />
         {/* Overlay em gradiente para contraste e legibilidade */}
         <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/35 to-background/70" />
@@ -31,7 +31,7 @@ export function Hero({ content }: { content: HeroContent }) {
 
       {/* Conteúdo por cima do overlay */}
               <div className="relative z-10 mx-auto w-full max-w-5xl px-4 pt-[40vh] pb-16 md:px-8 md:py-24">
-        <div className="mx-auto max-w-3xl text-center">
+        <div className="mx-auto max-w-3xl text-center md:mx-0 md:max-w-xl md:text-left">>
           <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/10 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.18em] text-gold">
             Imersão presencial • Macaé/RJ
           </p>
