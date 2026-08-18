@@ -30,7 +30,7 @@ export function Hero({ content }: { content: HeroContent }) {
       </div>
 
       {/* Conteúdo por cima do overlay */}
-      <div className="relative z-10 mx-auto w-full max-w-5xl px-4 py-16 md:px-8 md:py-24">
+              <div className="relative z-10 mx-auto w-full max-w-5xl px-4 pt-[40vh] pb-16 md:px-8 md:py-24">
         <div className="mx-auto max-w-3xl text-center">
           <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/10 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.18em] text-gold">
             Imersão presencial • Macaé/RJ
