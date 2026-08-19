@@ -5,8 +5,8 @@
  * Todos os botões de CTA usam esta constante.
  * ==========================================================================
  */
-export const CHECKOUT_URL = '[LINK-KIWIFY-PENDENTE]'
-
+export const CHECKOUT_URL = 'https://pay.kiwify.com.br/RQXlpiJ' // Individual
+export const CHECKOUT_URL_DUPLO = 'https://pay.kiwify.com.br/G4rEAm4' // Duplo (2 pessoas)
 export type HeroContent = {
   headline: string
   subheadline: string
