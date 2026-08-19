@@ -31,7 +31,7 @@ export function CtaButton({
 
   return (
     <a
-      href={CHECKOUT_URL}
+      href={href}
       onClick={handleClick}
       className={cn(
         'inline-flex min-h-[52px] items-center justify-center rounded-full bg-primary px-8 text-center font-semibold text-primary-foreground shadow-lg shadow-primary/20 transition-transform duration-200 hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring',
