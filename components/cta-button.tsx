@@ -12,12 +12,14 @@ declare global {
 type CtaButtonProps = {
   children: React.ReactNode
   className?: string
+    href?: string
   size?: 'default' | 'lg'
 }
 
 export function CtaButton({
   children,
   className,
+    href = CHECKOUT_URL,
   size = 'default',
 }: CtaButtonProps) {
   function handleClick() {
