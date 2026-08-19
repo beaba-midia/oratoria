@@ -14,7 +14,7 @@ export function Hero({ content }: { content: HeroContent }) {
           fill
           priority
           sizes="100vw"
-        className="object-cover object-[60%_20%] md:hidden"
+        className="object-cover object-[50%_70%] md:hidden"
         />
         {/* Desktop (paisagem) */}
         <Image
