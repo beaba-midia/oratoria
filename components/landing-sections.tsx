@@ -14,6 +14,8 @@ import { CtaButton } from '@/components/cta-button'
 import { Reveal } from '@/components/reveal'
 import {
   CTA_LABEL,
+    CHECKOUT_URL,
+      CHECKOUT_URL_DUPLO,
   audienceFit,
   audienceNotFit,
   curriculum,
@@ -239,34 +241,54 @@ export function LandingSections() {
         }}
       >
         <div className="absolute inset-0 bg-background/70" aria-hidden="true" />
-        <div className="relative mx-auto w-full max-w-3xl px-4 md:px-8">
+        <div className="relative mx-auto w-full max-w-4xl px-4 md:px-8">
           <Reveal>
-            <div className="rounded-3xl border border-gold/30 bg-card/70 p-7 text-center backdrop-blur-sm md:p-12">
-              <p className="mb-3 text-xs font-medium uppercase tracking-[0.2em] text-gold">
-                Investimento
-              </p>
-              <p className="text-base text-muted-foreground line-through">
-                De R$ 997,00
-              </p>
-              <p className="mt-2 font-serif text-4xl leading-none text-foreground md:text-6xl">
-                R$ 447,00
-                <span className="ml-2 align-middle text-base font-normal text-muted-foreground md:text-xl">
-                  à vista
-                </span>
-              </p>
-              <p className="mt-3 text-base text-foreground/90 md:text-lg">
-                ou 12x de R$ 46,20
-              </p>
-
-              <p className="mx-auto mt-6 max-w-md text-pretty text-sm leading-relaxed text-muted-foreground md:text-base">
-                Inclui certificado de conclusão, apostila, caneta e coffee break
-                nos intervalos.
-              </p>
-
-              <div className="mt-8 flex justify-center">
-                <CtaButton size="lg" className="w-full sm:w-auto">
-                  {CTA_LABEL}
-                </CtaButton>
+            <p className="mb-8 text-center text-xs font-medium uppercase tracking-[0.2em] text-gold">
+              Investimento
+            </p>
+            <div className="grid gap-6 md:grid-cols-2">
+              <div className="rounded-3xl border border-gold/30 bg-card/70 p-7 text-center backdrop-blur-sm md:p-10">
+                <p className="text-sm font-semibold uppercase tracking-wide text-foreground">
+                  Individual
+                </p>
+                <p className="mt-1 text-xs text-muted-foreground">1 pessoa</p>
+                <p className="mt-4 text-base text-muted-foreground line-through">
+                  De R$ 997,00
+                </p>
+                <p className="mt-2 font-serif text-4xl leading-none text-foreground md:text-5xl">
+                  12x de R$ 46,23
+                </p>
+                <p className="mt-2 text-sm text-muted-foreground md:text-base">
+                  ou R$ 447,00 à vista
+                </p>
+                <p className="mx-auto mt-6 max-w-md text-pretty text-sm leading-relaxed text-muted-foreground">
+                  Inclui certificado de conclusão, apostila, caneta e coffee break nos intervalos.
+                </p>
+                <div className="mt-8 flex justify-center">
+                  <CtaButton size="lg" className="w-full" href={CHECKOUT_URL}>
+                    {CTA_LABEL}
+                  </CtaButton>
+                </div>
+              </div>
+              <div className="rounded-3xl border border-gold/30 bg-card/70 p-7 text-center backdrop-blur-sm md:p-10">
+                <p className="text-sm font-semibold uppercase tracking-wide text-foreground">
+                  Duplo
+                </p>
+                <p className="mt-1 text-xs text-muted-foreground">2 pessoas</p>
+                <p className="mt-4 font-serif text-4xl leading-none text-foreground md:text-5xl">
+                  12x de R$ 82,43
+                </p>
+                <p className="mt-2 text-sm text-muted-foreground md:text-base">
+                  ou R$ 797,00 à vista
+                </p>
+                <p className="mx-auto mt-6 max-w-md text-pretty text-sm leading-relaxed text-muted-foreground">
+                  Inclui certificado de conclusão, apostila, caneta e coffee break nos intervalos para as 2 pessoas.
+                </p>
+                <div className="mt-8 flex justify-center">
+                  <CtaButton size="lg" className="w-full" href={CHECKOUT_URL_DUPLO}>
+                    {CTA_LABEL}
+                  </CtaButton>
+                </div>
               </div>
             </div>
           </Reveal>
