@@ -9,21 +9,21 @@ export function Hero({ content }: { content: HeroContent }) {
       <div className="absolute inset-0 z-0">
         {/* Mobile (retrato) */}
         <Image
-                src="/banner%20mobile%202.1.png"
-        alt="Jota Remédios, retrato profissional com uma águia estilizada ao fundo em tons de azul-marinho"
+          src="/banner%20mobile%202.1.png"
+          alt="Jota Remédios, retrato profissional com uma águia estilizada ao fundo em tons de azul-marinho"
           fill
           priority
           sizes="100vw"
-        className="object-cover object-[50%_70%] md:hidden"
+          className="object-cover object-[50%_70%] md:hidden"
         />
         {/* Desktop (paisagem) */}
         <Image
-        src="/banner%20desktop%202.png"
-        alt="Jota Remédios, retrato profissional com uma águia estilizada ao fundo em tons de azul-marinho"
+          src="/banner%20desktop%202.png"
+          alt="Jota Remédios, retrato profissional com uma águia estilizada ao fundo em tons de azul-marinho"
           fill
           priority
           sizes="(min-width: 768px) 100vw, 0px"
-        className="hidden object-cover object-[73%_25%] md:block"
+          className="hidden object-cover object-[73%_25%] md:block"
         />
         {/* Overlay em gradiente para contraste e legibilidade */}
         <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/35 to-background/70" />
