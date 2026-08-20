@@ -11,6 +11,7 @@ import {
 } from 'lucide-react'
 import { CtaButton } from '@/components/cta-button'
 import { Reveal } from '@/components/reveal'
+import { CountdownTimer } from '@/components/countdown-timer'
 import {
   CTA_LABEL,
   CHECKOUT_URL,
@@ -51,6 +52,34 @@ const socialProofVideos = [
   { id: '1219731043', title: 'Depoimento em vídeo 5' },
   { id: '1219731044', title: 'Depoimento em vídeo 6' },
   { id: '1219731045', title: 'Depoimento em vídeo 7' },
+]
+
+const faqItems = [
+  {
+    question: 'O evento é presencial ou online?',
+    answer:
+      'A Oratória Suprema é 100% presencial, no Paradiso Hotel, em Macaé/RJ, dia 17 de outubro de 2026, das 8:30h às 19h. Não há transmissão online.',
+  },
+  {
+    question: 'Serve pra quem já fala bem em público?',
+    answer:
+      'Sim. A imersão trabalha técnicas avançadas de oratória, persuasão e controle emocional que vão além do básico — tanto pra quem trava na hora de falar quanto pra quem já fala bem e quer levar a comunicação a outro nível.',
+  },
+  {
+    question: 'Posso parcelar o investimento?',
+    answer:
+      'Pode. O investimento individual sai em até 12x de R$ 46,23 (ou R$ 447,00 à vista), e o Duplo em até 12x de R$ 82,43 (ou R$ 797,00 à vista).',
+  },
+  {
+    question: 'Se eu não puder ir depois de me inscrever, tem reembolso?',
+    answer:
+      'Tem. Você pode solicitar reembolso integral em até 7 dias corridos após a confirmação da inscrição. Depois desse prazo, a vaga fica garantida e não é reembolsável.',
+  },
+  {
+    question: 'O que está incluso no investimento?',
+    answer:
+      'Certificado de conclusão, apostila, caneta e coffee break nos intervalos — inclusos tanto no Individual quanto no Duplo (pras 2 pessoas).',
+  },
 ]
 
 export function LandingSections() {
