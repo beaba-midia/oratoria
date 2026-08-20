@@ -7,7 +7,7 @@ const LEAD_WEBHOOK_URL =
 
 const AREA_OPTIONS = ['Empresário/autônomo', 'Vendedor/comercial', 'Gestor/líder de equipe', 'Outro']
 
-const FAIXA_OPTIONS = ['Menos de R$300', 'Entre R$300 e R$800', 'Acima de R$800']
+const FAIXA_OPTIONS = ['Até R$450', 'Entre R$450 e R$800', 'Acima de R$800']
 
 const MOTIVO_OPTIONS = [
   'Perco vendas por não me comunicar bem',
@@ -110,7 +110,7 @@ export function QualificationFormProvider({ children }: { children: React.ReactN
     setErro('')
     setStep('enviando')
 
-    const qualificado = faixaInvestimento !== 'Menos de R$300'
+    const qualificado = faixaInvestimento !== 'Até R$450'
 
     const params = new URLSearchParams(window.location.search)
     const payload = {
