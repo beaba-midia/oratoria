@@ -267,6 +267,34 @@ export function LandingSections() {
         </div>
       </section>
 
+{/* FAQ - Perguntas frequentes */}
+<section className="mx-auto w-full max-w-3xl px-4 py-16 md:px-8 md:py-20">
+  <Reveal>
+    <SectionTitle overline="Perguntas frequentes">
+      Antes de decidir, tira sua dúvida aqui
+    </SectionTitle>
+  </Reveal>
+
+  <Reveal delay={100}>
+    <div className="mx-auto mt-10 space-y-3">
+      {faqItems.map((faq) => (
+        <details
+          key={faq.question}
+          className="group rounded-xl border border-border bg-card/50 p-5 open:border-gold/40"
+        >
+          <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-sm font-medium text-foreground md:text-base">
+            {faq.question}
+            <span className="shrink-0 text-gold transition-transform group-open:rotate-45">+</span>
+          </summary>
+          <p className="mt-3 text-pretty text-sm leading-relaxed text-muted-foreground md:text-base">
+            {faq.answer}
+          </p>
+        </details>
+      ))}
+    </div>
+  </Reveal>
+</section>
+
       {/* 7. INVESTIMENTO */}
       <section
         id="investimento"
@@ -283,6 +311,19 @@ export function LandingSections() {
             <p className="mb-8 text-center text-xs font-medium uppercase tracking-[0.2em] text-gold">
               Investimento
             </p>
+            <div className="mx-auto mb-8 flex justify-center">
+            <div className="aspect-[9/16] w-[180px] overflow-hidden rounded-2xl border border-gold/30 shadow-lg shadow-black/30 sm:w-[200px]">
+              <iframe
+                className="h-full w-full"
+                src={`https://player.vimeo.com/video/${socialProofVideos[0].id}?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479`}
+                title={socialProofVideos[0].title}
+                allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                loading="lazy"
+                allowFullScreen
+              />
+            </div>
+          </div>
             <div className="grid gap-6 md:grid-cols-2">
               <div className="rounded-3xl border border-gold/30 bg-card/70 p-7 text-center backdrop-blur-sm md:p-10">
                 <p className="text-sm font-semibold uppercase tracking-wide text-foreground">
@@ -339,6 +380,7 @@ export function LandingSections() {
             Vagas limitadas. 17 de outubro, Macaé.
             <br className="hidden sm:block" /> Garanta a sua agora.
           </h2>
+          <CountdownTimer />
           <div className="mt-8 flex justify-center">
             <CtaButton size="lg" className="w-full sm:w-auto">
               {CTA_LABEL}
