@@ -233,6 +233,7 @@ export function LandingSections() {
 
       {/* 7. INVESTIMENTO */}
       <section
+        id="investimento"
         className="relative w-full overflow-hidden py-16 md:py-24"
         style={{
           backgroundImage: 'url(/textura-bg.png)',
