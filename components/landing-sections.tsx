@@ -8,14 +8,13 @@ import {
   Mail,
   Camera,
   MessageCircle,
-  Quote,
 } from 'lucide-react'
 import { CtaButton } from '@/components/cta-button'
 import { Reveal } from '@/components/reveal'
 import {
   CTA_LABEL,
-    CHECKOUT_URL,
-      CHECKOUT_URL_DUPLO,
+  CHECKOUT_URL,
+  CHECKOUT_URL_DUPLO,
   audienceFit,
   audienceNotFit,
   curriculum,
@@ -43,6 +42,16 @@ function SectionTitle({
     </div>
   )
 }
+
+const socialProofVideos = [
+  { id: '1203831427', title: 'Depoimento em vídeo 1' },
+  { id: '1203933198', title: 'Depoimento em vídeo 2' },
+  { id: '1203831428', title: 'Depoimento em vídeo 3' },
+  { id: '1203831430', title: 'Depoimento em vídeo 4' },
+  { id: '1219731043', title: 'Depoimento em vídeo 5' },
+  { id: '1219731044', title: 'Depoimento em vídeo 6' },
+  { id: '1219731045', title: 'Depoimento em vídeo 7' },
+]
 
 export function LandingSections() {
   return (
@@ -177,24 +186,22 @@ export function LandingSections() {
           </SectionTitle>
         </Reveal>
 
-        {/*
-          CARROSSEL DE PROVA SOCIAL (VÍDEOS)
-          Os embeds de vídeo (YouTube, Instagram, etc.) entram aqui.
-          Cada card abaixo é um placeholder pronto para receber um <iframe> de embed.
-          Ex.: <iframe src="https://www.youtube.com/embed/VIDEO_ID" ... />
-        */}
         <Reveal delay={100}>
-          <div className="mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 md:grid md:grid-cols-3 md:overflow-visible">
-            {[0, 1, 2].map((i) => (
+          <div className="mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4">
+            {socialProofVideos.map((video) => (
               <div
-                key={i}
-                className="flex aspect-[9/16] min-w-[75%] shrink-0 snap-center flex-col items-center justify-center gap-3 rounded-2xl border border-dashed border-border bg-card/40 p-6 text-center sm:min-w-[55%] md:aspect-video md:min-w-0"
+                key={video.id}
+                className="aspect-[9/16] w-[78%] shrink-0 snap-center overflow-hidden rounded-2xl border border-border/60 bg-card/40 sm:w-[46%] md:w-[240px] lg:w-[260px]"
               >
-                {/* SUBSTITUIR POR: <iframe className="h-full w-full rounded-2xl" src="..." allowFullScreen /> */}
-                <Quote className="size-8 text-gold/60" aria-hidden="true" />
-                <p className="text-sm text-muted-foreground">
-                  Depoimento em vídeo em breve
-                </p>
+                <iframe
+                  className="h-full w-full"
+                  src={`https://player.vimeo.com/video/${video.id}?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479`}
+                  title={video.title}
+                  allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  loading="lazy"
+                  allowFullScreen
+                />
               </div>
             ))}
           </div>
