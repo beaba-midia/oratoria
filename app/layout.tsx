@@ -2,6 +2,7 @@ import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import { Inter, Playfair_Display } from 'next/font/google'
 import { MetaPixel } from '@/components/meta-pixel'
+import { QualificationFormProvider } from '@/components/qualification-form'
 import './globals.css'
 
 const inter = Inter({
@@ -72,7 +73,7 @@ export default function RootLayout({
         <MetaPixel />
       </head>
       <body className="font-sans antialiased">
-        {children}
+        <QualificationFormProvider>{children}</QualificationFormProvider>>
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>
