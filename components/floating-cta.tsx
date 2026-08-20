@@ -31,7 +31,7 @@ export function FloatingCta() {
         <p className="hidden text-sm text-muted-foreground md:block">
           Oratória Suprema — 17 de outubro, Macaé/RJ. Vagas limitadas.
         </p>
-        <CtaButton className="w-full md:w-auto">{CTA_LABEL}</CtaButton>
+        <CtaButton href="#investimento" className="w-full md:w-auto">{CTA_LABEL}</CtaButton>
       </div>
     </div>
   )
