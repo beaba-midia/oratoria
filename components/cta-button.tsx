@@ -22,10 +22,35 @@ export function CtaButton({
     href = CHECKOUT_URL,
   size = 'default',
 }: CtaButtonProps) {
-  function handleClick() {
+  function handleClick(event: React.MouseEvent<HTMLAnchorElement>) {
     // Dispara o evento de conversão no Meta Pixel ao clicar em qualquer CTA.
     if (typeof window !== 'undefined' && typeof window.fbq === 'function') {
       window.fbq('track', 'InitiateCheckout')
+    }
+
+    if (href.startsWith('#')) {
+      const target = document.querySelector(href)
+      if (target) {
+        event.preventDefault()
+        const startY = window.scrollY
+        const targetY = startY + target.getBoundingClientRect().top
+        const distance = targetY - startY
+        const duration = 1600
+        const startTime = performance.now()
+        const easeInOutQuad = (t: number) =>
+          t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2
+
+        function step(now: number) {
+          const elapsed = now - startTime
+          const progress = Math.min(elapsed / duration, 1)
+          window.scrollTo(0, startY + distance * easeInOutQuad(progress))
+          if (progress < 1) {
+            requestAnimationFrame(step)
+          }
+        }
+
+        requestAnimationFrame(step)
+      }
     }
   }
 
