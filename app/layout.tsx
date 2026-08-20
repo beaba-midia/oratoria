@@ -73,7 +73,7 @@ export default function RootLayout({
         <MetaPixel />
       </head>
       <body className="font-sans antialiased">
-        <QualificationFormProvider>{children}</QualificationFormProvider>>
+        <QualificationFormProvider>{children}</QualificationFormProvider>
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>
