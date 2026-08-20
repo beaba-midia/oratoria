@@ -30,7 +30,7 @@ export function Hero({ content }: { content: HeroContent }) {
       </div>
 
       {/* Mobile: badge + headline fixados no topo */} <div className="absolute inset-x-0 top-0 z-10 px-4 pt-24 text-center md:hidden"> <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/10 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.18em] text-gold"> Imersão presencial • Macaé/RJ </p> <h1 className="text-balance font-serif text-[1.85rem] leading-[1.15] tracking-tight text-foreground sm:text-4xl"> {content.headline} </h1> </div> {/* Conteúdo por cima do overlay */}
-      <div className="relative z-10 mx-auto w-full max-w-5xl px-4 pb-6 md:px-8 md:py-24">
+      <div className="relative z-10 mx-auto w-full max-w-5xl px-4 pb-0 md:px-8 md:py-24">
         <div className="mx-auto max-w-3xl text-center md:mx-0 md:max-w-xl md:text-left">
           <p className="mb-4 hidden items-center gap-2 rounded-full border border-gold/40 bg-gold/10 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.18em] text-gold md:inline-flex">
             Imersão presencial • Macaé/RJ
