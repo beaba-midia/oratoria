@@ -16,7 +16,7 @@ export type HeroContent = {
 /** Conteúdo do hero por rota (teste A/B). */
 export const heroContent: Record<'vendas' | 'lideranca', HeroContent> = {
   vendas: {
-    headline: 'Você não perdeu a venda pro preço. Perdeu porque falou mal.',
+    headline: 'Você não perdeu a venda para o preço. Perdeu porque falou mal.',
     subheadline:
       'Domine a oratória e feche mais negócios com a Oratória Suprema. 17 de outubro, Macaé. Imersão com vagas limitadas.',
     pain: 'Sua proposta era melhor. Seu produto era melhor. Mesmo assim ele fechou com o concorrente. Não foi o preço. Foi a reunião. Isso custa comissão todo mês até você resolver como fala, não o que vende.',
