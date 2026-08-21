@@ -152,7 +152,7 @@ export function QualificationFormProvider({ children }: { children: React.ReactN
 
     if (qualificado) {
       setStep('qualificado')
-      window.location.href = checkoutUrl
+      const phoneDigits = whatsapp.replace(/\D/g, ''); const checkoutParams = new URLSearchParams(); checkoutParams.set('name', nome.trim()); checkoutParams.set('email', email.trim()); if (phoneDigits) checkoutParams.set('phone', phoneDigits); const separator = checkoutUrl.includes('?') ? '&' : '?'; window.location.href = `${checkoutUrl}${separator}${checkoutParams.toString()}`
     } else {
       setStep('desqualificado')
     }
