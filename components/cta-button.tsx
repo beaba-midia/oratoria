@@ -2,6 +2,7 @@
 
 import { cn } from '@/lib/utils'
 import { CHECKOUT_URL } from '@/lib/site'
+import { useQualificationForm } from '@/components/qualification-form'
 
 declare global {
   interface Window {
@@ -22,10 +23,16 @@ export function CtaButton({
     href = CHECKOUT_URL,
   size = 'default',
 }: CtaButtonProps) {
+    const { openForm } = useQualificationForm()
   function handleClick(event: React.MouseEvent<HTMLAnchorElement>) {
     // Dispara o evento de conversão no Meta Pixel ao clicar em qualquer CTA.
     if (typeof window !== 'undefined' && typeof window.fbq === 'function') {
       window.fbq('track', 'InitiateCheckout')
+    }
+    if (!href.startsWith('#')) {
+    event.preventDefault()
+    openForm(href)
+    return
     }
 
     if (href.startsWith('#')) {
