@@ -11,7 +11,7 @@ import {
 } from 'lucide-react'
 import { CtaButton } from '@/components/cta-button'
 import { Reveal } from '@/components/reveal'
-import { CountdownTimer } from '@/components/countdown-timer'
+import { CountdownTimer } from '@/components/countdown-timer'; import { VimeoFacade } from '@/components/vimeo-facade'
 import {
   CTA_LABEL,
   CHECKOUT_URL,
@@ -222,15 +222,7 @@ export function LandingSections() {
                 key={video.id}
                 className="aspect-[9/16] w-[78%] shrink-0 snap-center overflow-hidden rounded-2xl border border-border/60 bg-card/40 sm:w-[46%] md:w-[240px] lg:w-[260px]"
               >
-                <iframe
-                  className="h-full w-full"
-                  src={`https://player.vimeo.com/video/${video.id}?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479`}
-                  title={video.title}
-                  allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-                  referrerPolicy="strict-origin-when-cross-origin"
-                  loading="lazy"
-                  allowFullScreen
-                />
+                <VimeoFacade videoId={video.id} title={video.title} />
               </div>
             ))}
           </div>
@@ -298,32 +290,12 @@ export function LandingSections() {
       {/* 7. INVESTIMENTO */}
       <section
         id="investimento"
-        className="relative w-full overflow-hidden py-16 md:py-24"
-        style={{
-          backgroundImage: 'url(/textura-bg.png)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      >
-        <div className="absolute inset-0 bg-background/70" aria-hidden="true" />
-        <div className="relative mx-auto w-full max-w-4xl px-4 md:px-8">
+        className="w-full py-16 md:py-24"      >
+<div className="mx-auto w-full max-w-4xl px-4 md:px-8">
           <Reveal>
             <p className="mb-8 text-center text-xs font-medium uppercase tracking-[0.2em] text-gold">
               Investimento
             </p>
-            <div className="mx-auto mb-8 flex justify-center">
-            <div className="aspect-[9/16] w-[180px] overflow-hidden rounded-2xl border border-gold/30 shadow-lg shadow-black/30 sm:w-[200px]">
-              <iframe
-                className="h-full w-full"
-                src={`https://player.vimeo.com/video/${socialProofVideos[0].id}?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479`}
-                title={socialProofVideos[0].title}
-                allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-                referrerPolicy="strict-origin-when-cross-origin"
-                loading="lazy"
-                allowFullScreen
-              />
-            </div>
-          </div>
             <div className="grid gap-6 md:grid-cols-2">
               <div className="rounded-3xl border border-gold/30 bg-card/70 p-7 text-center backdrop-blur-sm md:p-10">
                 <p className="text-sm font-semibold uppercase tracking-wide text-foreground">
