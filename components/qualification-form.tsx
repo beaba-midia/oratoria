@@ -324,7 +324,7 @@ export function QualificationFormProvider({ children }: { children: React.ReactN
                   >
                     {step === 'enviando' ? 'Enviando...' : 'Confirmar e continuar'}
                   </button>
-                </form>
+                <p className="mt-3 text-center text-[11px] leading-relaxed text-muted-foreground">Ao se cadastrar, você concorda com o tratamento dos seus dados pessoais de acordo com a Lei Geral de Proteção de Dados (LGPD), para fins de contato sobre a Oratória Suprema.</p></form>
               </>
             ) : null}
 
