@@ -19,6 +19,7 @@ const MOTIVO_OPTIONS = [
 declare global {
   interface Window {
     dataLayer?: unknown[]
+    __loadGTM?: () => void
   }
 }
 
@@ -65,6 +66,9 @@ export function QualificationFormProvider({ children }: { children: React.ReactN
     setStep('form')
     setErro('')
     setIsOpen(true)
+    if (typeof window !== 'undefined' && typeof window.__loadGTM === 'function') {
+      window.__loadGTM()
+    }
   }
 
   function closeForm() {
@@ -152,7 +156,7 @@ export function QualificationFormProvider({ children }: { children: React.ReactN
 
     if (qualificado) {
       setStep('qualificado')
-      const phoneDigits = whatsapp.replace(/\D/g, ''); const checkoutParams = new URLSearchParams(); checkoutParams.set('name', nome.trim()); checkoutParams.set('email', email.trim()); if (phoneDigits) checkoutParams.set('phone', phoneDigits); const separator = checkoutUrl.includes('?') ? '&' : '?'; window.location.href = `${checkoutUrl}${separator}${checkoutParams.toString()}`
+      const phoneDigits = whatsapp.replace(/\D/g, ''); const checkoutParams = new URLSearchParams(); checkoutParams.set('name', nome.trim()); checkoutParams.set('email', email.trim()); if (phoneDigits) checkoutParams.set('phone', phoneDigits); const separator = checkoutUrl.includes('?') ? '&' : '?'; const destino = `${checkoutUrl}${separator}${checkoutParams.toString()}`; window.setTimeout(() => { window.location.href = destino }, 400)
     } else {
       setStep('desqualificado')
     }

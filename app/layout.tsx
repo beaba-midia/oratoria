@@ -69,7 +69,7 @@ export default function RootLayout({
       className={`${inter.variable} ${playfair.variable} bg-background`}
     >
       <head>
-        <Script id="gtm-script" strategy="lazyOnload">{`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-PW59BDQC');`}</Script>
+        <Script id="gtm-init" strategy="beforeInteractive">{`(function(w,l,i){w[l]=w[l]||[];w.__gtmLoaded=false;w.__loadGTM=function(){if(w.__gtmLoaded)return;w.__gtmLoaded=true;w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=document.getElementsByTagName('script')[0],j=document.createElement('script');j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+(l!='dataLayer'?'&l='+l:'');f.parentNode.insertBefore(j,f);};})(window,'dataLayer','GTM-PW59BDQC');`}</Script><Script id="gtm-lazy-trigger" strategy="lazyOnload">{`window.__loadGTM && window.__loadGTM();`}</Script>
       </head>
       <body className="font-sans antialiased">
         <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PW59BDQC" height="0" width="0" style={{display:'none',visibility:'hidden'}}></iframe></noscript><QualificationFormProvider>{children}</QualificationFormProvider>
