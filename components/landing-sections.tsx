@@ -14,8 +14,6 @@ import { Reveal } from '@/components/reveal'
 import { CountdownTimer } from '@/components/countdown-timer'; import { VimeoFacade } from '@/components/vimeo-facade'
 import {
   CTA_LABEL,
-  CHECKOUT_URL,
-  CHECKOUT_URL_DUPLO,
   audienceFit,
   audienceNotFit,
   curriculum,
@@ -287,65 +285,7 @@ export function LandingSections() {
   </Reveal>
 </section>
 
-      {/* 7. INVESTIMENTO */}
-      <section
-        id="investimento"
-        className="w-full py-16 md:py-24"      >
-<div className="mx-auto w-full max-w-4xl px-4 md:px-8">
-          <Reveal>
-            <p className="mb-8 text-center text-xs font-medium uppercase tracking-[0.2em] text-gold">
-              Investimento
-            </p>
-            <div className="grid gap-6 md:grid-cols-2">
-              <div className="rounded-3xl border border-gold/30 bg-card/70 p-7 text-center backdrop-blur-sm md:p-10">
-                <p className="text-sm font-semibold uppercase tracking-wide text-foreground">
-                  Individual
-                </p>
-                <p className="mt-1 text-xs text-muted-foreground">1 pessoa</p>
-                <p className="mt-4 text-base text-muted-foreground line-through">
-                  De R$ 997,00
-                </p>
-                <p className="mt-2 font-serif text-4xl leading-none text-foreground md:text-5xl">
-                  12x de R$ 46,23
-                </p>
-                <p className="mt-2 text-sm text-muted-foreground md:text-base">
-                  ou R$ 447,00 à vista
-                </p>
-                <p className="mx-auto mt-6 max-w-md text-pretty text-sm leading-relaxed text-muted-foreground">
-                  Inclui certificado de conclusão, apostila, caneta e coffee break nos intervalos.
-                </p>
-                <div className="mt-8 flex justify-center">
-                  <CtaButton size="lg" className="w-full" href={CHECKOUT_URL}>
-                    {CTA_LABEL}
-                  </CtaButton>
-                </div>
-              </div>
-              <div className="rounded-3xl border border-gold/30 bg-card/70 p-7 text-center backdrop-blur-sm md:p-10">
-                <p className="text-sm font-semibold uppercase tracking-wide text-foreground">
-                  Duplo
-                </p>
-                <p className="mt-1 text-xs text-muted-foreground">2 pessoas</p>
-                <p className="mt-4 font-serif text-4xl leading-none text-foreground md:text-5xl">
-                  12x de R$ 82,43
-                </p>
-                <p className="mt-2 text-sm text-muted-foreground md:text-base">
-                  ou R$ 797,00 à vista
-                </p>
-                <p className="mx-auto mt-6 max-w-md text-pretty text-sm leading-relaxed text-muted-foreground">
-                  Inclui certificado de conclusão, apostila, caneta e coffee break nos intervalos para as 2 pessoas.
-                </p>
-                <div className="mt-8 flex justify-center">
-                  <CtaButton size="lg" className="w-full" href={CHECKOUT_URL_DUPLO}>
-                    {CTA_LABEL}
-                  </CtaButton>
-                </div>
-              </div>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* 8. CTA FINAL */}
+      {/* 7. CTA FINAL */}
       <section className="mx-auto w-full max-w-4xl px-4 py-20 text-center md:px-8 md:py-28">
         <Reveal>
           <h2 className="text-balance font-serif text-3xl leading-tight text-foreground sm:text-4xl md:text-5xl">
@@ -361,7 +301,7 @@ export function LandingSections() {
         </Reveal>
       </section>
 
-      {/* 9. RODAPÉ */}
+      {/* 8. RODAPÉ */}
       <footer className="border-t border-border bg-card/40">
         <div className="mx-auto w-full max-w-5xl px-4 py-12 md:px-8">
           <div className="flex flex-col items-center gap-8 text-center md:flex-row md:items-start md:justify-between md:text-left">
