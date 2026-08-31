@@ -5,16 +5,7 @@ import { createContext, useContext, useEffect, useMemo, useState } from 'react'
 const LEAD_WEBHOOK_URL =
   'https://script.google.com/macros/s/AKfycbwdvp7MKtXHW0kuoNBYWvEIKSXhxrknZoYlf_5Og2lis5Y-sWzWPROK5c-ldjJqtXaj/exec'
 
-const AREA_OPTIONS = ['Empresário/autônomo', 'Vendedor/comercial', 'Gestor/líder de equipe', 'Outro']
-
-const FAIXA_OPTIONS = ['Até R$450', 'Entre R$450 e R$800', 'Acima de R$800']
-
-const MOTIVO_OPTIONS = [
-  'Perco vendas por não me comunicar bem',
-  'Tenho medo de falar em público',
-  'Quero mais autoridade e presença',
-  'Quero liderar reuniões e equipes com mais confiança',
-]
+const THANK_YOU_PATH = '/obrigado'
 
 declare global {
   interface Window {
@@ -24,7 +15,7 @@ declare global {
 }
 
 type QualificationFormContextValue = {
-  openForm: (checkoutUrl: string) => void
+  openForm: () => void
 }
 
 const QualificationFormContext = createContext<QualificationFormContextValue | null>(null)
@@ -37,32 +28,24 @@ export function useQualificationForm() {
   return ctx
 }
 
-type Step = 'form' | 'enviando' | 'qualificado' | 'desqualificado'
+type Step = 'form' | 'enviando' | 'enviado'
 
 export function QualificationFormProvider({ children }: { children: React.ReactNode }) {
   const [isOpen, setIsOpen] = useState(false)
-  const [checkoutUrl, setCheckoutUrl] = useState('')
   const [step, setStep] = useState<Step>('form')
   const [nome, setNome] = useState('')
   const [whatsapp, setWhatsapp] = useState('')
   const [email, setEmail] = useState('')
-  const [areaAtuacao, setAreaAtuacao] = useState('')
-  const [faixaInvestimento, setFaixaInvestimento] = useState('')
-  const [motivo, setMotivo] = useState('')
   const [erro, setErro] = useState('')
 
   function resetForm() {
     setNome('')
     setWhatsapp('')
     setEmail('')
-    setAreaAtuacao('')
-    setFaixaInvestimento('')
-    setMotivo('')
     setErro('')
   }
 
-  function openForm(url: string) {
-    setCheckoutUrl(url)
+  function openForm() {
     setStep('form')
     setErro('')
     setIsOpen(true)
@@ -99,14 +82,7 @@ export function QualificationFormProvider({ children }: { children: React.ReactN
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
-    if (
-      !nome.trim() ||
-      !whatsapp.trim() ||
-      !email.trim() ||
-      !areaAtuacao ||
-      !faixaInvestimento ||
-      !motivo
-    ) {
+    if (!nome.trim() || !whatsapp.trim() || !email.trim()) {
       setErro('Preenche todos os campos pra gente continuar.')
       return
     }
@@ -114,18 +90,12 @@ export function QualificationFormProvider({ children }: { children: React.ReactN
     setErro('')
     setStep('enviando')
 
-    const qualificado = faixaInvestimento !== 'Até R$450'
-
     const params = new URLSearchParams(window.location.search)
     const payload = {
       destino: 'oratoria',
       nome: nome.trim(),
       whatsapp: whatsapp.trim(),
       email: email.trim(),
-      areaAtuacao,
-      faixaInvestimento,
-      motivo,
-      qualificado: qualificado ? 'Sim' : 'Não',
       utm_source: params.get('utm_source') || '',
       utm_medium: params.get('utm_medium') || '',
       utm_campaign: params.get('utm_campaign') || '',
@@ -143,23 +113,39 @@ export function QualificationFormProvider({ children }: { children: React.ReactN
         body: JSON.stringify(payload),
       })
     } catch (err) {
-      console.error('Erro ao enviar formulário de qualificação:', err)
+      console.error('Erro ao enviar formulário de captação:', err)
     }
 
     if (typeof window !== 'undefined') {
       window.dataLayer = window.dataLayer || []
+      // Nome do evento mantido como 'lead_qualificado' de propósito: é o
+      // evento que a tag do GTM/Pixel já está configurada para escutar.
+      // Não há mais qualificação — todo envio de formulário é um lead.
       window.dataLayer.push({
-        event: qualificado ? 'lead_qualificado' : 'lead_desqualificado',
+        event: 'lead_qualificado',
         ...payload,
       })
     }
 
-    if (qualificado) {
-      setStep('qualificado')
-      const phoneDigits = whatsapp.replace(/\D/g, ''); const checkoutParams = new URLSearchParams(); checkoutParams.set('name', nome.trim()); checkoutParams.set('email', email.trim()); if (phoneDigits) checkoutParams.set('phone', phoneDigits); const separator = checkoutUrl.includes('?') ? '&' : '?'; const destino = `${checkoutUrl}${separator}${checkoutParams.toString()}`; window.setTimeout(() => { window.location.href = destino }, 400)
-    } else {
-      setStep('desqualificado')
+    setStep('enviado')
+
+    const phoneDigits = whatsapp.replace(/\D/g, '')
+    const thankYouParams = new URLSearchParams()
+    thankYouParams.set('name', nome.trim())
+    thankYouParams.set('email', email.trim())
+    if (phoneDigits) thankYouParams.set('phone', phoneDigits)
+    for (const key of ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content']) {
+      const value = params.get(key)
+      if (value) thankYouParams.set(key, value)
     }
+    const destino = `${THANK_YOU_PATH}?${thankYouParams.toString()}`
+
+    // Pequeno atraso proposital: dá tempo do evento 'lead_qualificado' ser
+    // processado pelo GTM/Pixel antes da navegação sair da página, evitando
+    // que o redirecionamento imediato cancele o disparo do evento de conversão.
+    window.setTimeout(() => {
+      window.location.href = destino
+    }, 400)
   }
 
   const value = useMemo(() => ({ openForm }), [])
@@ -242,83 +228,6 @@ export function QualificationFormProvider({ children }: { children: React.ReactN
                     </div>
                   </div>
 
-                  <fieldset>
-                    <legend className="mb-2 text-sm font-medium text-foreground">Área de atuação</legend>
-                    <div className="grid gap-2 sm:grid-cols-2">
-                      {AREA_OPTIONS.map((option) => (
-                        <label
-                          key={option}
-                          className={`flex cursor-pointer items-center gap-2 rounded-xl border px-3 py-2 text-sm transition-colors ${areaAtuacao === option
-                              ? 'border-gold bg-gold/10 text-foreground'
-                              : 'border-border text-muted-foreground hover:border-gold/50'
-                            }`}
-                        >
-                          <input
-                            type="radio"
-                            name="areaAtuacao"
-                            value={option}
-                            checked={areaAtuacao === option}
-                            onChange={(event) => setAreaAtuacao(event.target.value)}
-                            className="accent-gold"
-                          />
-                          {option}
-                        </label>
-                      ))}
-                    </div>
-                  </fieldset>
-
-                  <fieldset>
-                    <legend className="mb-2 text-sm font-medium text-foreground">Faixa de investimento</legend>
-                    <div className="space-y-2">
-                      {FAIXA_OPTIONS.map((option) => (
-                        <label
-                          key={option}
-                          className={`flex cursor-pointer items-center gap-2 rounded-xl border px-3 py-2 text-sm transition-colors ${faixaInvestimento === option
-                              ? 'border-gold bg-gold/10 text-foreground'
-                              : 'border-border text-muted-foreground hover:border-gold/50'
-                            }`}
-                        >
-                          <input
-                            type="radio"
-                            name="faixaInvestimento"
-                            value={option}
-                            checked={faixaInvestimento === option}
-                            onChange={(event) => setFaixaInvestimento(event.target.value)}
-                            className="accent-gold"
-                          />
-                          {option}
-                        </label>
-                      ))}
-                    </div>
-                  </fieldset>
-
-                  <fieldset>
-                    <legend className="mb-2 text-sm font-medium text-foreground">
-                      O que mais pesa pra você hoje?
-                    </legend>
-                    <div className="space-y-2">
-                      {MOTIVO_OPTIONS.map((option) => (
-                        <label
-                          key={option}
-                          className={`flex cursor-pointer items-center gap-2 rounded-xl border px-3 py-2 text-sm transition-colors ${motivo === option
-                              ? 'border-gold bg-gold/10 text-foreground'
-                              : 'border-border text-muted-foreground hover:border-gold/50'
-                            }`}
-                        >
-                          <input
-                            type="radio"
-                            name="motivo"
-                            value={option}
-                            checked={motivo === option}
-                            onChange={(event) => setMotivo(event.target.value)}
-                            className="accent-gold"
-                          />
-                          {option}
-                        </label>
-                      ))}
-                    </div>
-                  </fieldset>
-
                   {erro ? <p className="text-sm text-red-400">{erro}</p> : null}
 
                   <button
@@ -328,32 +237,15 @@ export function QualificationFormProvider({ children }: { children: React.ReactN
                   >
                     {step === 'enviando' ? 'Enviando...' : 'Confirmar e continuar'}
                   </button>
-                <p className="mt-3 text-center text-[11px] leading-relaxed text-muted-foreground">Ao se cadastrar, você concorda com o tratamento dos seus dados pessoais de acordo com a Lei Geral de Proteção de Dados (LGPD), para fins de contato sobre a Oratória Suprema.</p></form>
+                  <p className="mt-3 text-center text-[11px] leading-relaxed text-muted-foreground">Ao se cadastrar, você concorda com o tratamento dos seus dados pessoais de acordo com a Lei Geral de Proteção de Dados (LGPD), para fins de contato sobre a Oratória Suprema.</p>
+                </form>
               </>
             ) : null}
 
-            {step === 'qualificado' ? (
+            {step === 'enviado' ? (
               <div className="py-6 text-center">
                 <p className="font-serif text-2xl text-foreground">Perfeito!</p>
-                <p className="mt-2 text-sm text-muted-foreground">Redirecionando você pro checkout...</p>
-              </div>
-            ) : null}
-
-            {step === 'desqualificado' ? (
-              <div className="py-6 text-center">
-                <p className="font-serif text-2xl text-foreground">Recebemos seus dados</p>
-                <p className="mt-3 text-sm text-muted-foreground">
-                  No momento, com base nas suas respostas, essa imersão pode não ser o passo certo pra
-                  você agora. Guardamos seu contato e, se fizer sentido, alguém da nossa equipe pode
-                  falar com você.
-                </p>
-                <button
-                  type="button"
-                  onClick={closeForm}
-                  className="mt-6 inline-flex min-h-[48px] items-center justify-center rounded-full border border-border px-6 text-sm font-semibold text-foreground transition-colors hover:border-gold"
-                >
-                  Fechar
-                </button>
+                <p className="mt-2 text-sm text-muted-foreground">Redirecionando você...</p>
               </div>
             ) : null}
           </div>
