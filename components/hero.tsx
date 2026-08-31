@@ -52,7 +52,7 @@ export function Hero({ content }: { content: HeroContent }) {
           </div>
 
           <div className="mt-7 flex justify-center">
-            <CtaButton size="lg" href="#investimento" className="w-full sm:w-auto">
+            <CtaButton size="lg" className="w-full sm:w-auto">
               {CTA_LABEL}
             </CtaButton>
           </div>
