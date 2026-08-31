@@ -1,7 +1,6 @@
 'use client'
 
 import { cn } from '@/lib/utils'
-import { CHECKOUT_URL } from '@/lib/site'
 import { useQualificationForm } from '@/components/qualification-form'
 
 declare global {
@@ -13,29 +12,20 @@ declare global {
 type CtaButtonProps = {
   children: React.ReactNode
   className?: string
-    href?: string
+  href?: string
   size?: 'default' | 'lg'
 }
 
 export function CtaButton({
   children,
   className,
-    href = CHECKOUT_URL,
+  href,
   size = 'default',
 }: CtaButtonProps) {
-    const { openForm } = useQualificationForm()
-  function handleClick(event: React.MouseEvent<HTMLAnchorElement>) {
-    // Dispara o evento de conversão no Meta Pixel ao clicar em qualquer CTA.
-    if (typeof window !== 'undefined' && typeof window.fbq === 'function') {
-      window.fbq('track', 'InitiateCheckout')
-    }
-    if (!href.startsWith('#')) {
-    event.preventDefault()
-    openForm(href)
-    return
-    }
+  const { openForm } = useQualificationForm()
 
-    if (href.startsWith('#')) {
+  function handleClick(event: React.MouseEvent<HTMLAnchorElement>) {
+    if (href && href.startsWith('#')) {
       const target = document.querySelector(href)
       if (target) {
         event.preventDefault()
@@ -58,12 +48,16 @@ export function CtaButton({
 
         requestAnimationFrame(step)
       }
+      return
     }
+
+    event.preventDefault()
+    openForm()
   }
 
   return (
     <a
-      href={href}
+      href={href || '#'}
       onClick={handleClick}
       className={cn(
         'inline-flex min-h-[52px] items-center justify-center rounded-full bg-primary px-8 text-center font-semibold text-primary-foreground shadow-lg shadow-primary/20 transition-transform duration-200 hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring',
