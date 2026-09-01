@@ -18,6 +18,47 @@ type QualificationFormContextValue = {
   openForm: () => void
 }
 
+// DDDs válidos no Brasil (não existe todo número de 11 a 99 — ver
+// https://www.anatel.gov.br). Usado pra travar número claramente errado
+// (ex: "229" digitado sozinho) sem depender só de "campo não vazio".
+const VALID_DDDS = new Set([
+  11, 12, 13, 14, 15, 16, 17, 18, 19,
+  21, 22, 24,
+  27, 28,
+  31, 32, 33, 34, 35, 37, 38,
+  41, 42, 43, 44, 45, 46, 47, 48, 49,
+  51, 53, 54, 55,
+  61, 62, 63, 64, 65, 66, 67, 68, 69,
+  71, 73, 74, 75, 77, 79,
+  81, 82, 83, 84, 85, 86, 87, 88, 89,
+  91, 92, 93, 94, 95, 96, 97, 98, 99,
+])
+
+// Formata progressivamente enquanto digita: (DD) DDDD-DDDD (fixo, 10 dígitos)
+// ou (DD) DDDDD-DDDD (celular, 11 dígitos). Também é a trava física contra
+// excesso de dígitos, já que corta em 11 antes de formatar.
+function formatWhatsapp(raw: string) {
+  const digits = raw.replace(/\D/g, '').slice(0, 11)
+  if (!digits) return ''
+  const ddd = digits.slice(0, 2)
+  if (digits.length <= 2) return `(${ddd}`
+  const rest = digits.slice(2)
+  const splitAt = digits.length > 10 ? 5 : 4
+  const prefix = rest.slice(0, splitAt)
+  const suffix = rest.slice(splitAt)
+  return suffix ? `(${ddd}) ${prefix}-${suffix}` : `(${ddd}) ${prefix}`
+}
+
+// Válido = 10 ou 11 dígitos, com DDD real e (quando celular) o 9º dígito
+// obrigatório logo após o DDD.
+function isValidWhatsapp(value: string) {
+  const digits = value.replace(/\D/g, '')
+  if (digits.length !== 10 && digits.length !== 11) return false
+  if (!VALID_DDDS.has(Number(digits.slice(0, 2)))) return false
+  if (digits.length === 11 && digits[2] !== '9') return false
+  return true
+}
+
 const QualificationFormContext = createContext<QualificationFormContextValue | null>(null)
 
 export function useQualificationForm() {
@@ -84,6 +125,11 @@ export function QualificationFormProvider({ children }: { children: React.ReactN
 
     if (!nome.trim() || !whatsapp.trim() || !email.trim()) {
       setErro('Preenche todos os campos pra gente continuar.')
+      return
+    }
+
+    if (!isValidWhatsapp(whatsapp)) {
+      setErro('Confere o WhatsApp — precisa ter DDD + número completo, tipo (22) 99725-9403.')
       return
     }
 
@@ -207,8 +253,11 @@ export function QualificationFormProvider({ children }: { children: React.ReactN
                       <input
                         id="qf-whatsapp"
                         type="tel"
+                        inputMode="tel"
+                        autoComplete="tel"
+                        maxLength={15}
                         value={whatsapp}
-                        onChange={(event) => setWhatsapp(event.target.value)}
+                        onChange={(event) => setWhatsapp(formatWhatsapp(event.target.value))}
                         className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm text-foreground outline-none focus-visible:border-gold"
                         placeholder="(00) 00000-0000"
                       />
