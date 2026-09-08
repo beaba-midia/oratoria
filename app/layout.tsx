@@ -16,7 +16,7 @@ const playfair = Playfair_Display({
   display: 'swap',
 })
 
-const SITE_URL = 'https://oratoria-115jaol8z-jota-remedios.vercel.app'
+const SITE_URL = 'https://jotaremedios.com.br'
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
