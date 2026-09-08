@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import { Calendar, Clock, MapPin } from 'lucide-react'
 import { CheckoutLink } from '@/components/checkout-link'
-import { VimeoFacade } from '@/components/vimeo-facade'
 import { CHECKOUT_URL, CHECKOUT_URL_DUPLO, eventDetails } from '@/lib/site'
 
 const VSL_VIDEO_ID = '1224921011'
@@ -56,9 +55,13 @@ export default async function ObrigadoPage({
 
       <section className="mx-auto w-full max-w-xs px-4 pb-8 sm:max-w-sm md:px-8">
         <div className="mx-auto aspect-[9/16] w-full overflow-hidden rounded-2xl border border-gold/30 bg-card/40 shadow-xl shadow-black/30">
-          <VimeoFacade
-            videoId={VSL_VIDEO_ID}
+          <iframe
+            className="h-full w-full"
+            src={`https://player.vimeo.com/video/${VSL_VIDEO_ID}?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&playsinline=1`}
             title="Mensagem do Jota Remédios pra quem acabou de se inscrever"
+            allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen
           />
         </div>
       </section>
