@@ -1,7 +1,10 @@
 import type { Metadata } from 'next'
 import { Calendar, Clock, MapPin } from 'lucide-react'
 import { CheckoutLink } from '@/components/checkout-link'
+import { VimeoFacade } from '@/components/vimeo-facade'
 import { CHECKOUT_URL, CHECKOUT_URL_DUPLO, eventDetails } from '@/lib/site'
+
+const VSL_VIDEO_ID = '1224921011'
 
 export const metadata: Metadata = {
   title: 'Garanta sua vaga | Oratória Suprema',
@@ -49,6 +52,15 @@ export default async function ObrigadoPage({
           Falta só um passo: garantir sua vaga na Oratória Suprema. As condições de investimento
           estão logo abaixo.
         </p>
+      </section>
+
+      <section className="mx-auto w-full max-w-xs px-4 pb-8 sm:max-w-sm md:px-8">
+        <div className="mx-auto aspect-[9/16] w-full overflow-hidden rounded-2xl border border-gold/30 bg-card/40 shadow-xl shadow-black/30">
+          <VimeoFacade
+            videoId={VSL_VIDEO_ID}
+            title="Mensagem do Jota Remédios pra quem acabou de se inscrever"
+          />
+        </div>
       </section>
 
       <section className="mx-auto w-full max-w-4xl px-4 pb-4 md:px-8">
